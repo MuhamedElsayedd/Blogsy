@@ -10,4 +10,14 @@ class ThemeController extends Controller
     {
         return view('theme.index');
     }
+
+    public function category()
+    {
+        return view('theme.category');
+    }
+
+    public function contact()
+    {
+        return view('theme.contact');
+    }
 }
