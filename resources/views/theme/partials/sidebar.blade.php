@@ -1,4 +1,8 @@
 <!-- Start Blog Post Siddebar -->
+@php
+$Categories =App\Models\Category :: get();
+@endphp
+
 <div class="col-lg-4 sidebar-widgets">
     <div class="widget-wrap">
         <div class="single-sidebar-widget newsletter-widget">
@@ -23,41 +27,24 @@
             </form>
         </div>
 
+        @if( count($Categories) > 0)
         <div class="single-sidebar-widget post-category-widget">
-            <h4 class="single-sidebar-widget__title">Catgory</h4>
+            <h4 class="single-sidebar-widget__title">Category</h4>
             <ul class="cat-list mt-20">
+                @foreach($Categories as $category)
+
                 <li>
                     <a href="#" class="d-flex justify-content-between">
-                        <p>Technology</p>
+                        <p>{{ $category-> name }}</p>
                         <p>(03)</p>
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Software</p>
-                        <p>(09)</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Lifestyle</p>
-                        <p>(12)</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Shopping</p>
-                        <p>(02)</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex justify-content-between">
-                        <p>Food</p>
-                        <p>(10)</p>
-                    </a>
-                </li>
+                @endforeach
             </ul>
         </div>
+
+        @endif
+
 
         <div class="single-sidebar-widget popular-post-widget">
             <h4 class="single-sidebar-widget__title">Recent Post</h4>
