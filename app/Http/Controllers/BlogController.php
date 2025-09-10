@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBlogRequest;
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class BlogController extends Controller
 {
@@ -20,15 +24,19 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('theme.blogs.create');
-        //
+        if (Auth::check()) {
+            $categories = Category::get();
+            return view('theme.blogs.create', compact('categories'));
+        }
+        abort(403);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBlogRequest $request)
     {
+        dd($request->all());
         //
     }
 

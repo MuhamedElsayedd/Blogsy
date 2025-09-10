@@ -1,44 +1,53 @@
 @extends('theme.master')
-@section('title','Register')
+@section('title','Add New Blog')
 
 @section('content')
-@include('theme.partials.hero',['title' =>'Register'])
+@include('theme.partials.hero',['title' =>'Add New Blog'])
 
 <!-- ================ contact section start ================= -->
 <section class="section-margin--small section-margin">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('register.post') }}" class="form-contact contact_form" action="contact_process.php" method="post" novalidate="novalidate">
+                <form action="{{ route('blogs.store') }}" class="form-contact contact_form" action="contact_process.php" method="post"
+                    novalidate="novalidate" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <input class="form-control border" name="name" type="text" placeholder="Enter your name" value="{{ old('name') }}">
-                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control border" name="email" type="email" placeholder="Enter email address" value="{{ old('email') }}">
-                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <input class="form-control border" name="password" type="password" placeholder="Enter your password">
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control border" name="password_confirmation" type="password" placeholder="Enter your password confirmation">
-                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <input class="form-control border" name="title" type="text"
+                            placeholder="Enter your blog title" value="{{ old('title') }}">
+                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
+
+                    <div class="form-group">
+                        <input class="form-control border" name="name" type="file">
+                        <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control border" name="category_id" type="text"
+                            placeholder="Enter your Blog title" value="{{ old('category_id') }}">
+                            <option value="">Select Category</option>
+                            @if($categories)
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="w-100 border" name="description" type="text"
+                            placeholder=" Enter your Blog title" rows="5" value="{{ old('description') }}">
+                        </textarea>
+                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                    </div>
+
+
                     <div class="form-group text-center text-md-right mt-3">
-                        <a href="{{route('login')}}" class="mx-3">Already Registerd ?</a>
-                        <button type="submit" class="button button--active button-contactForm">Register</button>
+                        <button type="submit" class="button button--active button-contactForm">Submit</button>
                     </div>
                 </form>
             </div>
