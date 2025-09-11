@@ -36,8 +36,21 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request)
     {
-        dd($request->all());
-        //
+        $data = $request->validated();
+
+        $image = $request->image;
+
+        $newImageName = time() . '-' . $image->getClientOriginalName();
+
+        $image->storeAs('blogs', $newImageName, 'public');
+
+        $data['image'] = $newImageName;
+        $data['user_id'] = Auth::user()->id;
+
+
+        Blog::create($data);
+
+        return back()->with('blogCreateStatus', 'Your blog created successfully');
     }
 
     /**

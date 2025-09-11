@@ -1,6 +1,6 @@
  <!--================Header Menu Area =================-->
  @php
- $headerCategories =App\Models\Category ::take(4) -> get();
+ $headerCategories =App\Models\Category ::take(5) -> get();
  @endphp
  <header class="header_area">
      <div class="main_menu">
@@ -23,7 +23,7 @@
                              @if( count($headerCategories) > 0)
                              <ul class="dropdown-menu">
                                  @foreach($headerCategories as $category)
-                                 <li class="nav-item"><a class="nav-link" href="{{route('theme.category')}}">{{$category -> name}}</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="{{route('theme.category', ['id' => $category->id])}}">{{$category -> name}}</a></li>
                                  @endforeach
                              </ul>
                              @endif

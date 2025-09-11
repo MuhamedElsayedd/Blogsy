@@ -13,6 +13,11 @@
                     novalidate="novalidate" enctype="multipart/form-data">
                     @csrf
 
+                    @if (session('blogCreateStatus'))
+                    <div class="alert alert-success">
+                        {{ session('blogCreateStatus') }}
+                    </div>
+                    @endif
 
                     <div class="form-group">
                         <input class="form-control border" name="title" type="text"
@@ -21,7 +26,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input class="form-control border" name="name" type="file">
+                        <input class="form-control border" name="image" type="file" accept="image/*">
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     </div>
 
