@@ -59,6 +59,7 @@ class BlogController extends Controller
     public function show(Blog $blog)
     {
         //
+        return view('theme.single-blog', compact('blog'));
     }
 
     /**
@@ -67,6 +68,8 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     {
         //
+        $categories = Category::get();
+        return view('theme.blogs.edit', compact('categories', 'blog'));
     }
 
     /**
@@ -83,5 +86,18 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
         //
+    }
+
+    /**
+     * Display All user's blogs.
+     */
+    public function myBlogs(Blog $blog)
+    {
+        //
+        if (Auth::check()) {
+            $blogs = Blog::Where('user_id', Auth::user()->id)->paginate(10);
+            return view('theme.blogs.my-blogs', compact('blogs'));
+        }
+        abort(403);
     }
 }

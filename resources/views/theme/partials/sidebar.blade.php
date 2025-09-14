@@ -32,7 +32,6 @@ $Categories =App\Models\Category :: get();
             <h4 class="single-sidebar-widget__title">Category</h4>
             <ul class="cat-list mt-20">
                 @foreach($Categories as $category)
-
                 <li>
                     <a href="{{ route('theme.category', ['id' => $category->id]) }}" class="d-flex justify-content-between">
                         <p>{{ $category-> name }}</p>
