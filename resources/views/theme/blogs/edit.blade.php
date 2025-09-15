@@ -9,19 +9,20 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('blogs.store') }}" class="form-contact contact_form" action="contact_process.php" method="post"
+                <form action="{{ route('blogs.update',[ 'blog' => $blog ]) }}" class="form-contact contact_form" action="contact_process.php" method="post"
                     novalidate="novalidate" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
 
-                    @if (session('blogCreateStatus'))
+                    @if (session('blogUpdateStatus'))
                     <div class="alert alert-success">
-                        {{ session('blogCreateStatus') }}
+                        {{ session('blogUpdateStatus') }}
                     </div>
                     @endif
 
                     <div class="form-group">
                         <input class="form-control border" name="title" type="text"
-                            placeholder="Enter your blog title" value="{{ old('title') }}">
+                            placeholder="Enter your blog title" value="{{ $blog ->title }}">
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
 
@@ -32,11 +33,12 @@
 
                     <div class="form-group">
                         <select class="form-control border" name="category_id" type="text"
-                            placeholder="Enter your Blog title" value="{{ old('category_id') }}">
+                            placeholder="Enter your Blog title" value="{{old('category_id')}}">
                             <option value="">Select Category</option>
                             @if($categories)
                             @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @if($category->id == $blog ->category_id)
+                                selected @endif>{{ $category->name }}</option>
                             @endforeach
                             @endif
                         </select>
@@ -44,8 +46,8 @@
                     </div>
 
                     <div class="form-group">
-                        <textarea class="w-100 border" name="description" type="text"
-                            placeholder=" Enter your Blog title" rows="5" value="{{ old('description') }}">
+                        <textarea class="w-100 border" name="description" type="text" placeholder=" Enter your Blog title" rows="5">
+                        {{$blog -> description}}
                         </textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
